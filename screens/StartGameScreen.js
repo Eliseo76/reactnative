@@ -11,13 +11,16 @@ import {
 import Card from "../components/Card";
 import Colors from "../constants/colors"
 import Input from "../components/Input";
-import NumberContainer from "../NumberContainer";
+import NumberContainer from "../components/NumberContainer";
+import BodyText from "../components/BodyText";
+import TitleText from "../components/TitleText";
+import MainButton from "../components/MainButton";
 
 
 const StartGameScreen = props => {
     const [enteredValue, setEnteredValue] = useState("");
     const [confirmed, setConfirmed] = useState(false);
-    const [selectedNumber, setSelectedNumber] = useState();
+    const [selectedNumber, setSelectedNumber] = useState(null);
 
 
     const numberInputHandler = (inputText) => {
@@ -49,19 +52,18 @@ const StartGameScreen = props => {
     let confirmedOutput;
 
     if(confirmed){
-    confirmedOutput = (
-        <View style={styles.confirmation}>
-            <Card>
-                <Text>You Selected</Text>
+    confirmedOutput =
+            <Card style={styles.summaryContainer}>
+                <BodyText>You Selected</BodyText>
                 <NumberContainer>{selectedNumber}</NumberContainer>
                 <View style={styles.conformationButton}>
-                    <Button title={"START GAME!"} onPress={props.onStart(selectedNumber)}/>
+                    <MainButton  onPress={()=> props.onStart(selectedNumber)}>Start Game</MainButton>
                 </View>
 
             </Card>
-        </View>
 
-        )
+
+
     }
 
 
@@ -71,9 +73,9 @@ const StartGameScreen = props => {
         }
         }>
             <View style={styles.screen}>
-                <Text style={styles.title}>Start a New Game!</Text>
+                <TitleText style={styles.title}>Start a New Game!</TitleText>
                 <Card style={styles.inputContainer}>
-                    <Text>Select a Number</Text>
+                    <BodyText>Select a Number</BodyText>
                     <Input
                         style={styles.input}
                         blurOnSubmit autoCaptialize={"none"}
@@ -109,6 +111,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         marginVertical: 10,
+        fontFamily: "open-sans-bold"
 
     },
     inputContainer: {
@@ -133,13 +136,16 @@ const styles = StyleSheet.create({
         width: 50,
         textAlign: "center"
     },
-    confirmation:{
+    summaryContainer:{
             marginTop:20,
         alignItems: "center",
         textAlign: "center"
     },
     conformationButton:{
         alignItems: "center"
+    },
+    text:{
+        fontFamily: "open-sans-bold"
     }
 
 
